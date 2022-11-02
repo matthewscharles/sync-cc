@@ -19,6 +19,9 @@ CaptionsSBV.prototype = {}
 
 CaptionsSBV.prototype.constructor = CaptionsSBV;
 
+CaptionsSBV.prototype.setContainer = function(container){
+    this.container = container;
+}
 
 /**
  * Update captions
@@ -33,7 +36,7 @@ CaptionsSBV.prototype.updateCaptions = function(time, display=true, enabled = tr
         this.container.style.opacity = 0;
         return false;
     }
-    let msg = sbvCaptions.timeline.find(entry => (entry.startS <= time && entry.endS >= time));
+    let msg = this.timeline.find(entry => (entry.startS <= time && entry.endS >= time));
     this.container.innerHTML = "";
 
     if (typeof msg != 'undefined'){
