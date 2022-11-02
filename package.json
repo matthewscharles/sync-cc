@@ -1,0 +1,30 @@
+{
+  "name": "captions-sbv",
+  "version": "1.0.0",
+  "description": "Sync captions to an external video source and place in an HTML container.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "doc": "jsdoc -c jsdoc.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matthewscharles/captions-sbv.git"
+  },
+  "keywords": [
+    "access",
+    "accessibility",
+    "captions",
+    "sbv",
+    "video"
+  ],
+  "author": "Charles Matthews",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/matthewscharles/captions-sbv/issues"
+  },
+  "homepage": "https://github.com/matthewscharles/captions-sbv#readme",
+  "devDependencies": {
+    "jsdoc": "^3.6.11"
+  }
+}
