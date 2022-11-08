@@ -41,7 +41,6 @@ CaptionsSBV.prototype.updateCaptions = function(time, display=true, enabled = tr
 
     if (typeof msg != 'undefined'){
         msg.content.forEach((x,i)=>{
-            // text(x,width/2,i*30+height/2)
             this.container.innerHTML+=x;
             if(i<msg.content.length-1)this.container.innerHTML+='<br>';
         })
@@ -160,6 +159,5 @@ CaptionsSBV.prototype.loadCaptions = function(filename){
     request.open('get', `./${this.filename}`, true);
     request.send();
 }
-
 
 module.exports = CaptionsSBV;

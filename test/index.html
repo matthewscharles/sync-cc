@@ -51,12 +51,9 @@
       }
 
       // 5. The API calls this function when the player's state changes.
-      //    The function indicates that when playing a video (state=1),
-      //    the player should play for six seconds and then stop.
       var done = false;
       function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.PLAYING && !done) {
-          setTimeout(stopVideo, 6000);
           done = true;
         }
       }
@@ -65,11 +62,7 @@
       }
     </script>
     <script>
-        
-
-        // set to update every 100ms
-       
-
+    
     </script>
     <div>
         YouTube example modified under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a>.
