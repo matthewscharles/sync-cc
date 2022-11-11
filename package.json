@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "doc": "jsdoc -c jsdoc.json",
-    "build": "webpack ./test_src/test.js -o ./test"
+    "build": "npm run doc && webpack ./test_src/test.js -o ./test"
   },
   "repository": {
     "type": "git",
