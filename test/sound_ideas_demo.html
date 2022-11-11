@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="./main.js"></script>
+    <title>SyncCC test page</title>
+</head>
+<body>
+  <h1>Sound Ideas demo</h1>
+  <div>
+    
+  </div>
+    <div id="player_container">
+      <div id="player"></div>
+      <div id="captions_div" style="height:1em;" role="status"></div>
+    </div>
+    <script>
+      
+      var tag = document.createElement('script');
+      let params = new URLSearchParams();
+
+      // following player code is modified from https://developers.google.com/youtube/iframe_api_reference (Apache 2.0 license)
+      // mostly intact, but taken out the original comments for clarity in calling out the changes
+      // see onPlayerReady for the SyncCC setup...
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '390',
+          width: '640',
+          // insert an id here or use ?clip= in the url..but we'll need to find a way to replace the caption file below.
+          videoId: params.get('clip') || 'UdEUnDURU2U',
+          playerVars: {
+            'playsinline': 1
+          },
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+
+      function onPlayerReady(event) {
+        event.target.playVideo();
+
+        //--------------------------------------SyncCC--------------------------------------------//
+
+        // set the container div (this is a workaround for load order; perhaps it should be the id)
+        syncCC.setContainer(document.querySelector('#captions_div'));
+
+        // load captions from file
+        // syncCC.loadCaptions('./captions_sample.sbv');
+        syncCC.loadCaptions('./project_content_not_included_in_license.sbv');
+
+        //100ms intervals should be sufficient for captions
+        syncCC.interval = setInterval(()=>{syncCC.updateCaptions(player.getCurrentTime())},100);
+
+        //--------------------------------------SyncCC--------------------------------------------//        
+      }
+
+      var done = false;
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+          done = true;
+        }
+      }
+      function stopVideo() {
+        player.stopVideo();
+      }
+    </script>
+    <script>
+    
+    </script>
+    <div>
+        The YouTube player example has been modified from <a href=https://developers.google.com/youtube/iframe_api_reference>YouTube iFrame API reference</a> under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a>.
+        Modifications and SyncCC library (c) Charles Matthews 2022.
+    </div>
+  </body>
+</html>

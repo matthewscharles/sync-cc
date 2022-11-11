@@ -32,20 +32,29 @@ SyncCC.prototype.setContainer = function(container){
  */
 
 SyncCC.prototype.updateCaptions = function(time, display=true, enabled = true){
+    let output=""
     if(!display){
         this.container.style.opacity = 0;
         return false;
     }
     let msg = this.timeline.find(entry => (entry.startS <= time && entry.endS >= time));
-    this.container.innerHTML = "";
 
     if (typeof msg != 'undefined'){
-        msg.content.forEach((x,i)=>{
-            this.container.innerHTML+=x;
-            if(i<msg.content.length-1)this.container.innerHTML+='<br>';
+        msg.content.forEach((x,i)=>{        
+            output+=x;
+            if(i<msg.content.length-1) output+='<br>';
         })
+
+        if(output!=this.container.innerHTML){            
+            this.container.innerHTML = "";
+            this.container.innerHTML = output;
+        } else {
+
+        }
+        
         this.container.style.opacity = enabled ? 1 : 0
     } else {
+        this.container.innerHTML = ""
         this.container.style.opacity = 0;
     } 
 }
