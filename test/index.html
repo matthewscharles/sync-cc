@@ -4,23 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <script src="./main.js"></script>
-    <title>Captions test page</title>
+    <title>SyncCC test page</title>
 </head>
 <body>
-    <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-    <div id="player"></div>
-    <div id="captions_div" style="height:1em;"></div>
-
+  <h1>SyncCC demo</h1>
+  <div>
+    Play the video below to see the captions update automatically.
+  </div>
+    <div id="player_container">
+      <div id="player"></div>
+      <div id="captions_div" style="height:1em;"></div>
+    </div>
     <script>
-      // 2. This code loads the IFrame Player API code asynchronously.
       var tag = document.createElement('script');
 
       tag.src = "https://www.youtube.com/iframe_api";
       var firstScriptTag = document.getElementsByTagName('script')[0];
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-      // 3. This function creates an <iframe> (and YouTube player)
       //    after the API code downloads.
       var player;
       function onYouTubeIframeAPIReady() {
@@ -38,19 +41,17 @@
         });
       }
 
-      // 4. The API will call this function when the video player is ready.
       function onPlayerReady(event) {
         // set the container div (this is a workaround for load order; perhaps it should be the id)
-        captionsSBV.setContainer(document.querySelector('#captions_div'));
+        syncCC.setContainer(document.querySelector('#captions_div'));
 
         // load captions from file
-        captionsSBV.loadCaptions('./captions_sample.sbv');
-        setInterval(()=>{captionsSBV.updateCaptions(player.getCurrentTime())},100);
+        syncCC.loadCaptions('./captions_sample.sbv');
+        setInterval(()=>{syncCC.updateCaptions(player.getCurrentTime())},100);
         event.target.playVideo();
         
       }
 
-      // 5. The API calls this function when the player's state changes.
       var done = false;
       function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.PLAYING && !done) {
@@ -65,7 +66,7 @@
     
     </script>
     <div>
-        YouTube example modified under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a>.
+        The YouTube player example has been modified from <a href=https://developers.google.com/youtube/iframe_api_reference>YouTube iFrame API reference</a> under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a>.
     </div>
   </body>
 </html>

@@ -1,7 +1,7 @@
 {
-  "name": "captions-sbv",
+  "name": "sync-cc",
   "version": "1.0.0",
-  "description": "Sync captions to an external video source and place in an HTML container.",
+  "description": "Place captions in an HTML container and sync to an external source.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

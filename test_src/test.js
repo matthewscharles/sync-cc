@@ -1,2 +1,2 @@
-const CaptionsSBV = require('../index.js')
-window.captionsSBV = new CaptionsSBV(document.querySelector('#captions_div'));
+const SyncCC = require('../index.js')
+window.syncCC = new SyncCC(document.querySelector('#captions_div'));

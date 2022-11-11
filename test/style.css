@@ -1,0 +1,21 @@
+body {
+    font-family:verdana;
+}
+
+#captions_div {
+    height:3em;
+    font-size:2rem;
+    font-family:arial;
+    padding:1em;
+    background-color:black;
+    color:lightgray;
+    width:calc(640px - 2em);
+}
+
+#player_container {
+    margin:auto;
+    left:0px;
+    right:0px;
+    width:640px;
+    padding:2em;
+}
