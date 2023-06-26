@@ -185,6 +185,7 @@ SyncCC.prototype.splitCaptions = function(script){
  */
 
  SyncCC.prototype.requestListener = function requestListener() {
+    console.log('requestListener', this.responseText, this.captionTarget)
     if(!this.captionTarget) {window.textOutput = this.responseText; return false};
     this.captionTarget.script.events = this.responseText.split('\n\n')
     this.captionTarget.timeline = this.captionTarget.splitCaptions(this.captionTarget.script.events, this.captionTarget);
