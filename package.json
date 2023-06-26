@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Place captions in an HTML container and sync to an external source.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "doc": "jsdoc -c jsdoc.json",
