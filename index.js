@@ -23,7 +23,7 @@ function srtToSbv(srtString) {
       const text = lines.slice(2).join('\n');
   
       // Combine the formatted start and end times and the caption text to form a single string
-      const output = `${index + 1}\n${times[0]},${times[1]}\n${text}\n`;
+      const output = `${times[0]},${times[1]}\n${text}\n`;
 
       return output;
     });
@@ -145,7 +145,7 @@ SyncCC.prototype.convertTimetoMs = function(timeString){
  */
 
 SyncCC.prototype.splitCaptions = function(script){
-    // something going wrong in with scope/this around the httprequest, so duplicating the function here
+    // something is going wrong with scope/this around the httprequest, so duplicating the convertTimeToMs function here
     function convertTimeToMs(timeString){
         if(timeString=="" || typeof timeString=="undefined") {
             // input is blank, return blank string
@@ -171,9 +171,9 @@ SyncCC.prototype.splitCaptions = function(script){
                 end:event.split('\n')[0].split(',')[1],
                 content:event.split('\n').slice(1)
             } 
-            lineTest.startS = convertTimeToMs(lineTest.start)
-            lineTest.endS = convertTimeToMs(lineTest.end)
-            output.push(lineTest)
+            lineTest.startS = convertTimeToMs(lineTest.start);
+            lineTest.endS = convertTimeToMs(lineTest.end);
+            output.push(lineTest);
     }, this)
 
     return output;
@@ -185,7 +185,8 @@ SyncCC.prototype.splitCaptions = function(script){
  */
 
  SyncCC.prototype.requestListener = function requestListener() {
-    console.log('requestListener', this.responseText, this.captionTarget)
+    // troubleshooting
+    console.log('requestListener', this.responseText, this.captionTarget);
     if(!this.captionTarget) {window.textOutput = this.responseText; return false};
     this.captionTarget.script.events = this.responseText.split('\n\n')
     this.captionTarget.timeline = this.captionTarget.splitCaptions(this.captionTarget.script.events, this.captionTarget);
