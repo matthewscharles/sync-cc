@@ -1,5 +1,5 @@
 /**
- * 
+ * Convert .srt captions to .sbv format.
  * @param {string} srtString 
  * @returns {string} captions in .sbv format
  */
@@ -68,11 +68,13 @@ SyncCC.prototype.setContainer = function(container){
  */
 
 SyncCC.prototype.updateCaptions = function(time, display=true, enabled = true){
-    let output=""
+    let output="";
+
     if(!display){
         this.container.style.opacity = 0;
         return false;
     }
+
     let msg = this.timeline.find(entry => (entry.startS <= time && entry.endS >= time));
 
     if (typeof msg != 'undefined'){
@@ -87,8 +89,9 @@ SyncCC.prototype.updateCaptions = function(time, display=true, enabled = true){
         } else {
 
         }
-        
-        this.container.style.opacity = enabled ? 1 : 0
+        // todo: look into adding/removing classes instead of setting opacity -- more flexibility
+        this.container.style.opacity = enabled ? 1 : 0;
+
     } else {
         this.container.innerHTML = ""
         this.container.style.opacity = 0;
@@ -102,10 +105,14 @@ SyncCC.prototype.updateCaptions = function(time, display=true, enabled = true){
  */
 
  SyncCC.prototype.checkNextDescriptionTime = function(player){
+
     let time = player.getCurrentTime();
     let nextDescription = Math.floor(sbvCaptions.timeline.find(entry => (entry.startS >= time && entry.endS >= time)).startS-time);
     // If the next description is a while away (over six seconds), let the user know through their screen reader of choice.
-    if (nextDescription > 6 && typeof StatusVO != undefined) StatusVO.update(`audio description starting in ${nextDescription} seconds`);
+    if (nextDescription > 6 && typeof StatusVO != undefined) {
+        StatusVO.update(`audio description starting in ${nextDescription} seconds`)
+    };
+
 }
 
 /**
@@ -117,8 +124,8 @@ SyncCC.prototype.updateCaptions = function(time, display=true, enabled = true){
 SyncCC.prototype.convertTimetoMs = function(timeString){
     if(timeString=="" || typeof timeString=="undefined") {
         // input is blank, return blank string
-        console.log('nothing')
-        return ""
+        console.log('nothing to convert...');
+        return "";
     }
     let timeSplit=timeString.split(':')
     let time = {
@@ -127,7 +134,7 @@ SyncCC.prototype.convertTimetoMs = function(timeString){
         seconds:    parseInt(timeSplit[2].split('.')[0]),
         ms:         parseInt(timeSplit[2].split('.')[1])
     }
-    let totalMs = time.ms + (time.seconds*1000) + (time.minutes*60*1000) + (time.hours*60*60*1000)
+    let totalMs = time.ms + (time.seconds*1000) + (time.minutes*60*1000) + (time.hours*60*60*1000);
     return totalMs/1000;
 }
 
@@ -142,7 +149,7 @@ SyncCC.prototype.splitCaptions = function(script){
     function convertTimeToMs(timeString){
         if(timeString=="" || typeof timeString=="undefined") {
             // input is blank, return blank string
-            return ""
+            return "";
         }
         let timeSplit=timeString.split(':')
         let time = {
