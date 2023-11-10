@@ -216,4 +216,4 @@ SyncCC.prototype.loadCaptions = function(filename){
     request.send();
 }
 
-export {SyncCC};
+export { SyncCC };
