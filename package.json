@@ -1,6 +1,6 @@
 {
   "name": "sync-cc",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "Place captions in an HTML container and sync to an external source.",
   "type": "module",
   "files": [
