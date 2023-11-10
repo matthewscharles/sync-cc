@@ -9,7 +9,7 @@ This is work in progress and not necessarily ready for other people to use yet. 
 
 ## instructions
 ```javascript
-import SyncCC from 'sync-cc';
+import { SyncCC } from 'sync-cc';
 window.syncCC = new SyncCC(document.querySelector('#captions_div'));
 syncCC.load('captions_sample.sbv');
 ```
