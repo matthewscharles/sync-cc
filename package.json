@@ -2,12 +2,25 @@
   "name": "sync-cc",
   "version": "1.0.4",
   "description": "Place captions in an HTML container and sync to an external source.",
-  "main": "index.js",
   "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/sync-cc.umd.js",
+  "module": "./dist/sync-cc.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/sync-cc.es.js",
+      "require": "./dist/sync-cc.umd.js"
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "doc": "jsdoc -c jsdoc.json",
-    "build": "npm run doc && webpack ./test_src/test.js -o ./test"
+    "build": "npm run doc && webpack ./test_src/test.js -o ./test",
+    "build_vite": "vite build",
+    "preview": "vite preview",
+    "dev": "vite"
   },
   "repository": {
     "type": "git",
@@ -29,6 +42,7 @@
   "devDependencies": {
     "fs": "0.0.1-security",
     "jsdoc": "^3.6.11",
+    "vite": "^4.5.0",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0"
   }
