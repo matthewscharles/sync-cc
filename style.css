@@ -2,6 +2,14 @@ body {
     font-family:verdana;
 }
 
+main, footer {
+    position: relative;
+    max-width: 900px;
+    font-family: sans-serif;
+    margin: 0 auto 0 auto;
+    padding: 20px;
+}
+
 #captions_div {
     height:3em;
     font-size:1.5rem;
@@ -9,13 +17,21 @@ body {
     padding:1em;
     background-color:black;
     color:lightgray;
-    width:calc(640px - 2em);
+    /* width:calc(640px - 2em); */
+    max-width: 640px;
 }
 
 #player_container {
-    margin:auto;
-    left:0px;
-    right:0px;
-    width:640px;
-    padding:2em;
+    
+    
+    max-width: 640px;
+    padding: 0; /* Remove padding to avoid extra space */
 }
+
+#player {
+    
+    width: 100%;
+    
+
+}
+

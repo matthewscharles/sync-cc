@@ -6,25 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script src="./main.js" type="module"></script>
-    <title>SyncCC test page</title>
+    <title>Sync-CC test page</title>
 </head>
 <body>
-  <h1>SyncCC demo</h1>
+  <main>
+  <h1>Sync-CC demo</h1>
   <div>
-    Play the video below to see the captions update automatically.
+    This library synchronizes HTML captions with a video.
+    Play the YouTube video below to see the captions within the page update automatically.
   </div>
     <div id="player_container">
       <div id="player"></div>
       <div id="captions_div" style="height:1em;"></div>
     </div>
+  </main>
     <script>
       
       var tag = document.createElement('script');
       let params = new URLSearchParams();
 
-      // following player code is modified from https://developers.google.com/youtube/iframe_api_reference (Apache 2.0 license)
-      // mostly intact, but taken out the original comments for clarity in calling out the changes
-      // see onPlayerReady for the SyncCC setup...
+      // the following player code is modified from https://developers.google.com/youtube/iframe_api_reference (Apache 2.0 license)
+      // it is mostly intact, but I have taken out the original comments for clarity
+      // see the onPlayerReady function for the Sync-CC setup...
 
       tag.src = "https://www.youtube.com/iframe_api";
       var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -35,7 +38,8 @@
         player = new YT.Player('player', {
           height: '390',
           width: '640',
-          // insert an id here or use ?clip= in the url..but we'll need to find a way to replace the caption file below.
+          // Insert an id here or use ?clip= in the url. 
+          // We'll need to find a way to replace the caption file below.
           videoId: params.get('clip') || 'Tbq-pNsVsjM',
           playerVars: {
             'playsinline': 1
@@ -58,18 +62,20 @@
         // load captions from file
         syncCC.loadCaptions('./captions_sample.sbv');
 
-        //100ms intervals should be sufficient for captions
+        // 100ms intervals should be sufficient for captions
         syncCC.interval = setInterval(()=>{syncCC.updateCaptions(player.getCurrentTime())},100);
 
         //--------------------------------------SyncCC--------------------------------------------//        
       }
 
       var done = false;
+      
       function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.PLAYING && !done) {
           done = true;
         }
       }
+      
       function stopVideo() {
         player.stopVideo();
       }
@@ -77,9 +83,13 @@
     <script>
     
     </script>
-    <div>
-        The YouTube player example has been modified from <a href=https://developers.google.com/youtube/iframe_api_reference>YouTube iFrame API reference</a> under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a>.<br>
+    <footer>
+      <p>
+        The YouTube player example has been modified from <a href=https://developers.google.com/youtube/iframe_api_reference>YouTube iFrame API reference</a> under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a>.
+      </p>
+      <p>
         Modifications and SyncCC library (c) Charles Matthews 2022.
-    </div>
+      </p>
+    </footer>
   </body>
 </html>
