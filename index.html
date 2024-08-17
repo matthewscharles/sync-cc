@@ -12,8 +12,8 @@
   <main>
   <h1>Sync-CC demo</h1>
   <div>
-    This library synchronizes HTML captions with a video.
-    Play the YouTube video below to see the captions within the page update automatically.
+    <p>This library synchronizes HTML captions with a video.</p>
+    <p>Play the YouTube video below to see captions update on the page.</p>
   </div>
     <div id="player_container">
       <div id="player"></div>
@@ -25,9 +25,9 @@
       var tag = document.createElement('script');
       let params = new URLSearchParams();
 
-      // the following player code is modified from https://developers.google.com/youtube/iframe_api_reference (Apache 2.0 license)
-      // it is mostly intact, but I have taken out the original comments for clarity
-      // see the onPlayerReady function for the Sync-CC setup...
+      // The following player code is modified from https://developers.google.com/youtube/iframe_api_reference (Apache 2.0 license).
+      // The example is mostly intact, but I have taken out the original comments to highlight where I have made changes.
+      // See the onPlayerReady function for the Sync-CC setup...
 
       tag.src = "https://www.youtube.com/iframe_api";
       var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -42,7 +42,8 @@
           // We'll need to find a way to replace the caption file below.
           videoId: params.get('clip') || 'Tbq-pNsVsjM',
           playerVars: {
-            'playsinline': 1
+            'playsinline': 1,
+            'cc_load_policy': 3
           },
           events: {
             'onReady': onPlayerReady,
@@ -52,6 +53,7 @@
       }
 
       function onPlayerReady(event) {
+        
         event.target.playVideo();
 
         //--------------------------------------SyncCC--------------------------------------------//
