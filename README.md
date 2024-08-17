@@ -3,13 +3,12 @@ Synchronise captions to an external video source and place in an HTML container.
 
 Once in place, these captions can be utilized creatively, such as triggering related events or interactions.
 
-Use Cases:
-This functionality is particularly useful in scenarios where:
+This is useful in scenarios where:
 
-	•	Standard caption controls are unavailable or non-functional.
-	•	Users have disabled caption display, preventing detection of changes in the typical caption container.
+•	Standard caption controls are unavailable or non-functional.
+•	Users have disabled caption display, preventing detection of changes in the typical caption container.
 
-By implementing this method, ensure caption availability and enhance user interaction are ensured, regardless of default settings or user preferences.
+By implementing this method caption availability and enhanced user interaction are ensured, regardless of default settings or user preferences.
 
 ## Application
 
