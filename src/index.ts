@@ -1,43 +1,4 @@
-/**
- * Convert .srt captions to .sbv format.
- * @param {string} srtString 
- * @returns {string} captions in .sbv format
- */
-
-function srtToSbv(srtString: string): string {
-    if (typeof srtString !== 'string') {
-        throw new TypeError('Input must be a string');
-    }
-    // Split the string into individual captions
-    const captions = srtString.trim().split(/\n\s*\n/);
-  
-    // Convert each caption to the .sbv format, removing the arrow ("-->") character
-    const sbvCaptions = captions.map((caption, index) => {
-      // Split the caption into its individual lines
-        const lines = caption.trim().split(/\n/);
-      
-        if (lines.length < 2) {
-            throw new Error('Invalid caption format');
-        }
-  
-        // Extract the start and end times from the first line
-        const [startTime, endTime] = lines[1].split(' --> ');
-  
-        // Format the start and end times
-        const times = [startTime.replace(',', '.'), endTime.replace(',', '.')];
-
-        // Join the remaining lines to form the caption text
-        const text = lines.slice(2).join('\n');
-  
-        // Combine the formatted start and end times and the caption text to form a single string
-        const output = `${times[0]},${times[1]}\n${text}\n`;
-
-        return output;
-    });
-  
-    // Join the .sbv captions into a single string
-    return sbvCaptions.join('');
-  }
+import { srtToSbv } from './srtToSbv';
 
 interface CaptionEntry {
     startS: number;
@@ -60,7 +21,8 @@ const SyncCC = function(container: HTMLElement): void {
     this.filename   =   '';
     this.container  =   container;
     // quick fix for testing
-    window.srtToSbv = srtToSbv;
+    
+    (window as any).srtToSbv = srtToSbv;
 }
 
 SyncCC.prototype = {}
@@ -71,44 +33,6 @@ SyncCC.prototype.setContainer = function(container){
     this.container = container;
 }
 
-/**
- * Update captions
- * @param {*} time              Timestamp
- * @param {*} display           Display?
- * @param {boolean} enabled     Check if captions are enabled overall -- this needed to be separate in the original application.
- * @returns {void}
- */
-
-SyncCC.prototype.updateCaptions = function(time: string, display=true, enabled = true){
-    let output="";
-
-    if(!display){
-        this.container.style.opacity = 0;
-        return false;
-    }
-
-    let msg = this.timeline.find(entry => (entry.startS <= time && entry.endS >= time));
-
-    if (typeof msg != 'undefined'){
-        msg.content.forEach((x,i)=>{        
-            output+=x;
-            if(i<msg.content.length-1) output+='<br>';
-        })
-
-        if(output!=this.container.innerHTML){            
-            this.container.innerHTML = "";
-            this.container.innerHTML = output;
-        } else {
-
-        }
-        // todo: look into adding/removing classes instead of setting opacity -- more flexibility
-        this.container.style.opacity = enabled ? 1 : 0;
-
-    } else {
-        this.container.innerHTML = ""
-        this.container.style.opacity = 0;
-    } 
-}
 
 /**
  * Check the current time of the player; set nextDescription to the next available entry.<br>
@@ -181,7 +105,9 @@ SyncCC.prototype.splitCaptions = function(script){
             let lineTest={
                 start:event.split('\n')[0].split(',')[0],
                 end:event.split('\n')[0].split(',')[1],
-                content:event.split('\n').slice(1)
+                content:event.split('\n').slice(1),
+                startS:0,
+                endS:0
             } 
             lineTest.startS = convertTimeToMs(lineTest.start);
             lineTest.endS = convertTimeToMs(lineTest.end);
@@ -199,7 +125,7 @@ SyncCC.prototype.splitCaptions = function(script){
  SyncCC.prototype.requestListener = function requestListener() {
     // troubleshooting
     console.log('requestListener', this.responseText, this.captionTarget);
-    if(!this.captionTarget) {window.textOutput = this.responseText; return false};
+    if(!this.captionTarget) {(window as any).textOutput = this.responseText; return false};
     this.captionTarget.script.events = this.responseText.split('\n\n')
     this.captionTarget.timeline = this.captionTarget.splitCaptions(this.captionTarget.script.events, this.captionTarget);
 }
