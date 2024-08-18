@@ -23,7 +23,11 @@ A quick converter from .srt to .sbv is provided to the global scope for testing 
 ## Instructions
 ```javascript
 import { SyncCC } from 'sync-cc';
+
+// create an instance, identifying the container for captions
 window.syncCC = new SyncCC(document.querySelector('#captions_div'));
+
+// load the captions from an external .sbv file
 syncCC.load('captions_sample.sbv');
 ```
 
