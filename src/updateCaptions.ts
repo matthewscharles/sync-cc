@@ -6,7 +6,7 @@
  * @returns {void}
  */
 
-SyncCC.prototype.updateCaptions = function(time: string, display=true, enabled = true){
+expost const updateCaptions = function(time: string, display=true, enabled = true){
     let output="";
 
     if(!display){
