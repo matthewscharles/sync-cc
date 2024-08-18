@@ -11,7 +11,7 @@ main, footer {
 }
 
 #captions_div {
-    height:3em;
+    height:1em;
     font-size:1.5rem;
     font-family:arial;
     padding:1em;
@@ -22,16 +22,16 @@ main, footer {
 }
 
 #player_container {
-    
-    
     max-width: 640px;
     padding: 0; /* Remove padding to avoid extra space */
 }
 
 #player {
-    
     width: 100%;
-    
-
 }
 
+
+.hidden{
+    /* display:none; */
+    opacity:0.1;
+}
